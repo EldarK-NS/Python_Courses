@@ -15,7 +15,16 @@
     <tbody>
         {% for course in courses %}
         <tr>
-                <td>{{ course.title }}</td>
+                <td>
+                    {% comment %} First  variant link to course detail page:relative path {% endcomment %}
+                    {% comment %} <a href="{{ course.id }}">{{ course.title }}</a> {% endcomment %}
+
+                    {% comment %} second variant link to course detail page:absolute path {% endcomment %}
+                    {% comment %} <a href="{% url 'single_course' course.id %}">{{ course.title }}</a> {% endcomment %}
+                    
+                    {% comment %} third variant link to course detail page: namespaced path if app_name is set in urls.py {% endcomment %}
+                    <a href="{% url 'single_course' course.id %}">{{ course.title }}</a>
+                </td>
                 <td>{{ course.category }}</td>
                 <td>{{ course.price }}</td>
                 <td>{{ course.students_qty }}</td>
