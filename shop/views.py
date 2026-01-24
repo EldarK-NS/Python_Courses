@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from . import models
 
@@ -11,8 +11,12 @@ def index(request):
 
 
 def single_course(request, course_id):
-    try:
-        course = models.Course.objects.get(pk=course_id)
-        return render(request, 'single_course.html', {'course': course})
-    except models.Course.DoesNotExist:
-        raise Http404("Course not found")
+    # Option 1: Using get_object_or_404
+    # try:
+    #     course = models.Course.objects.get(pk=course_id)
+    #     return render(request, 'single_course.html', {'course': course})
+    # except models.Course.DoesNotExist:
+    #     raise Http404("Course not found")
+    #   # Option 2: Using get_object_or_404 (uncomment to use)
+    course = get_object_or_404(models.Course, pk=course_id)
+    return render(request, 'single_course.html', {'course': course})
