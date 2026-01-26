@@ -1,9 +1,9 @@
-from tastypie.authentication import APiKeyAuthentication
+from tastypie.authentication import ApiKeyAuthentication
 
 # Custom authentication logic can be added here
 
 
-class CustomAuthentication(APiKeyAuthentication):
+class CustomAuthentication(ApiKeyAuthentication):
     def is_authenticated(self, request, **kwargs):
         if request.method == 'GET':
             return True
