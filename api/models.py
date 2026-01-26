@@ -22,10 +22,16 @@ class CourseResource(ModelResource):
         authentication = CustomAuthentication()
         authorization = Authorization()
 
+# hydrate - преобразование входящих данных из запроса API в объект модели, метод позволяет настраивать, как данные из запроса будут сохранены в модели (как данные идут от клиента на сервер)
     def hydrate(self, bundle):
         bundle.obj.category_id = bundle.data['category_id']
         return bundle
 
+# dehydrate - преобразование данных из объекта модели в формат, подходящий для API, метод позволяет регулировать вывод данных для клиента(как данные идут от сервера к клиенту)
     def dehydrate(self, bundle):
         bundle.data['category_id'] = bundle.obj.category
         return bundle
+# пример
+
+    def dehydrate_title(self, bundle):
+        return bundle.data['title'].upper()
