@@ -21,6 +21,8 @@ class CourseResource(ModelResource):
         allowed_methods = ['get', 'post', 'delete']
         authentication = CustomAuthentication()
         authorization = Authorization()
+        # фильтрация выходных данных, исключение полей из ответа API
+        excludes = ['created_at', "reviews_qty"]
 
 # hydrate - преобразование входящих данных из запроса API в объект модели, метод позволяет настраивать, как данные из запроса будут сохранены в модели (как данные идут от клиента на сервер)
     def hydrate(self, bundle):
@@ -29,7 +31,8 @@ class CourseResource(ModelResource):
 
 # dehydrate - преобразование данных из объекта модели в формат, подходящий для API, метод позволяет регулировать вывод данных для клиента(как данные идут от сервера к клиенту)
     def dehydrate(self, bundle):
-        bundle.data['category_id'] = bundle.obj.category
+        bundle.data['category_id'] = bundle.obj.category_id
+        bundle.data['category'] = bundle.obj.category
         return bundle
 # пример
 
